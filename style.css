@@ -276,9 +276,9 @@ body {
 }
 .ngo-card {
   width: 100%;
-  max-width: 700px;     /* 🔥 width control */
+  max-width: 700px;    
   padding: 20px;
-  margin: auto;         /* center align */
+  margin: auto;         
   border-radius: 15px;
   background: linear-gradient(135deg, #66bb6a, #43a047);
   color: white;
