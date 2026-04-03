@@ -66,7 +66,7 @@ A platform where users can:
 
 ## 🛠 Tech Stack
 
-* ⚛️ React Native
+* Html , CSS
 * 💻 JavaScript
 * 🌐 GitHub
 
