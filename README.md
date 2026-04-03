@@ -8,7 +8,7 @@
 
 **Plastic Nova** is not just a project — it's a movement to transform plastic waste into valuable resources.
 We aim to connect people, technology, and organizations to create a **cleaner and more sustainable environment**.
-Plastic Nova - A smart platform to sell plastic waste, connect with buyers, and promote recycling through rewards and NGO drives.
+**Plastic Nova** - A smart platform to sell plastic waste, connect with buyers, and promote recycling through rewards and NGO drives.
 
 ---
 ## 💡 Problem Statement
