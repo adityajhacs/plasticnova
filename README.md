@@ -103,6 +103,26 @@ A platform where users can:
 We welcome contributions!
 Feel free to fork this repository and submit pull requests.
 
+## Successfully created login/signup page and Home page
+## 📸 Screenshots
+
+### 🔐 Login Page
+User authentication interface for secure access.
+![Login](login_page.jpg)
+
+---
+
+### 📝 Signup Page
+New user registration screen.
+![Signup](signup.jpg)
+
+---
+
+### 🏠 Home Dashboard
+Displays user impact, nearby buyers and NGO drives.
+![Home](homepage(1).jpg)
+
+![Home 2](homepage(2).jpg)
 ---
 
 ## 🌍 Vision
