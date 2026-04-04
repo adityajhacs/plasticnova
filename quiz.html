@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eco Quiz</title>
+
+  <style>
+   /* RESET */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #43a047, #e8f5e9);
+}
+
+/* MAIN CONTAINER */
+.container {
+  max-width: 550px;
+  margin: 80px auto;
+  background: #e8f5e9;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+/* TITLE */
+h2 {
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+/* PROGRESS BAR */
+.progress {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #2e7d32;
+  transition: 0.4s;
+}
+
+/* QUESTION */
+.question {
+  font-size: 20px;
+  font-weight: 500;
+  color: #222;
+  margin: 20px 0;
+}
+
+/* OPTIONS */
+.option {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #d0e6d7;
+  background: #f1f8f4;
+  color: #333;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: left;
+}
+
+.option:hover {
+  background: #c8e6c9;
+  transform: scale(1.02);
+}
+
+/* CORRECT / WRONG */
+.option.correct {
+  background: #4caf50 !important;
+  color: white;
+}
+
+.option.wrong {
+  background: #e53935 !important;
+  color: white;
+}
+
+/* NEXT BUTTON */
+.next-btn {
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.next-btn:hover {
+  background: #1b5e20;
+}
+
+/* SCORE TEXT */
+.score {
+  font-size: 20px;
+  margin-top: 15px;
+  color: #333;
+}
+
+/* BACK LINK */
+.back-btn {
+  display: block;
+  margin-top: 15px;
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+/* SMALL TEXT */
+.sub-text {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>🧠 Eco Quiz</h2>
+
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div id="question" class="question"></div>
+
+  <div id="options"></div>
+
+  <button class="next-btn" id="nextBtn" onclick="nextQ()">Next ➡</button>
+
+  <p id="score" class="score"></p>
+
+  <a href="dashboard.html" class="back-btn">⬅ Back to Dashboard</a>
+
+</div>
+
+<script>
+
+const quiz = [
+  { q: "Plastic takes how long to decompose?", o: ["50", "100", "500", "1000"], c: 2 },
+  { q: "Which is eco-friendly?", o: ["Plastic bag", "Cloth bag", "Foam", "None"], c: 1 },
+  { q: "Biggest ocean threat?", o: ["Plastic", "Wood", "Food", "Paper"], c: 0 },
+  { q: "Recycling reduces?", o: ["Pollution", "Heat", "Noise", "None"], c: 0 },
+  { q: "Best habit?", o: ["Reuse", "Burn", "Throw", "Ignore"], c: 0 },
+  { q: "Recycling saves?", o: ["Energy", "Water", "Resources", "All"], c: 3 }
+];
+
+let i = 0;
+let score = 0;
+let answered = false;
+
+function loadQ() {
+  answered = false;
+
+  let q = quiz[i];
+  document.getElementById("question").innerText = q.q;
+
+  let optHTML = "";
+  q.o.forEach((opt, index) => {
+    optHTML += `<button class="option" onclick="check(${index}, this)">
+      ${opt}
+    </button>`;
+  });
+
+  document.getElementById("options").innerHTML = optHTML;
+
+  // progress bar
+  document.getElementById("progressBar").style.width = ((i / quiz.length) * 100) + "%";
+}
+
+function check(index, btn) {
+  if (answered) return;
+  answered = true;
+
+  if (index === quiz[i].c) {
+    score+=10;
+    btn.classList.add("correct");
+  } else {
+    btn.classList.add("wrong");
+  }
+}
+
+function nextQ() {
+  i++;
+
+  if (i >= quiz.length) {
+    document.getElementById("question").innerHTML = "🎉 Quiz Completed!";
+    document.getElementById("options").innerHTML = "";
+    document.getElementById("score").innerText = "Your Score: " + score;
+
+    // ❌ hide next button
+    document.getElementById("nextBtn").style.display = "none";
+
+    // full progress
+    document.getElementById("progressBar").style.width = "100%";
+
+    return;
+  }
+
+  loadQ();
+}
+
+loadQ();
+
+</script>
+
+</body>
+</html>

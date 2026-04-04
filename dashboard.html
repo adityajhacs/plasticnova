@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plastic Nova Dashboard</title>
+ <style>
+  body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  width: 230px;
+  height: 100%;
+  background: linear-gradient(180deg, #2e7d32, #1b5e20);
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar a {
+  display: block;
+  margin: 15px 0;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* MAIN */
+.main {
+  margin-left: 250px;
+  padding: 30px;
+}
+
+/* CARDS */
+.card {
+  padding: 20px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.glass {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* TOP */
+.top-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* QUICK */
+.section-title {
+  margin-top: 25px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.quick-item {
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.quick-item:hover {
+  transform: scale(1.05);
+}
+
+/* BOTTOM */
+.bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+/* QUIZ */
+.quiz-box {
+  background: #e8f5e9;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.quiz-box button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #2e7d32;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* LIST */
+ul {
+  padding-left: 18px;
+}
+.funfact-gaming {
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 15px;
+
+  background: linear-gradient(90deg, #1a1a1a, #2e7d32, #1a1a1a);
+  color: #00ffcc;
+
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+
+  box-shadow: 0 0 10px #00ffcc;
+  letter-spacing: 1px;
+
+  animation: glow 1.5s infinite alternate;
+}
+
+/* glow effect */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #00ffcc;
+  }
+  to {
+    box-shadow: 0 0 20px #00ffcc;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>♻ Nova</h2>
+  <a href="dashboard.html">🏠 Dashboard</a>
+  <a href="upload.html">📤 Upload</a>
+  <a href="buyers.html">👥 Buyers</a>
+  <a href="profile.html">👤 Profile</a>
+</div>
+<div class="main">
+
+  <!-- 🔥 SABSE TOP PE -->
+  <div id="funFactBox" class="funfact-gaming">
+    🎮 Loading eco facts...
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+
+  <h1>🔥 Welcome Back</h1>
+
+  <!-- TOP CARDS -->
+  <div class="top-cards">
+    <div class="card glass">
+      <h3>🏆 Points</h3>
+      <h2>100</h2>
+    </div>
+
+    <div class="card glass">
+      <h3>🚚 Pickup Status</h3>
+      <p id="pickupStatus">No pickup scheduled</p>
+    </div>
+
+    <div class="card glass">
+      <h3>🎁 Rewards</h3>
+      <p>Earn 4900 more points</p>
+    </div>
+  </div>
+
+  <!-- QUICK ACCESS -->
+  <h3 class="section-title">⚡ Quick Access</h3>
+
+  <div class="quick-grid">
+     
+      <div class="quick-item" onclick="goTo('../index.html')">🏠 Home</div>
+      <div class="quick-item" onclick="goTo('upload.html')">📤 Upload</div>
+      <div class="quick-item" onclick="goTo('marketplace.html')">🛍 Marketplace</div>
+      <div class="quick-item" onclick="goTo('schedule.html')">📅 Schedule</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+
+    <div class="card glass">
+      <h3>📊 Activity</h3>
+      <ul>
+        <li>Sold plastic waste (+100)</li>
+        <li>Bought recyclable material (+50)</li>
+        <li>Sold creative item (+200)</li>
+      </ul>
+    </div>
+
+    <div class="card glass">
+      <h3>🧠 Eco Quiz</h3>
+      <div class="quiz-box">
+        <p>Test your eco knowledge 🌍</p>
+        <button  class="quiz-btn" onclick="goQuiz()">Start Quiz 🚀</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const ecoFacts = [
+  "🎮 +10 XP: Recycling saves energy!",
+  "🌍 Mission: Save Earth from plastic!",
+  "♻ Level Up: Use less plastic daily!",
+  "🚯 Warning: Plastic stays for 500 years!",
+  "💧 Bonus: Recycling saves water!",
+  "🌱 Achievement Unlocked: Go Green!"
+];
+
+function startFunFacts() {
+  const box = document.getElementById("funFactBox");
+
+  if (!box) return;
+
+  function updateFact() {
+    const randomFact = ecoFacts[Math.floor(Math.random() * ecoFacts.length)];
+    box.innerText = randomFact;
+  }
+
+  updateFact();
+  setInterval(updateFact, 5000);
+}
+
+window.addEventListener("load", startFunFacts);
+// 🔁 COMMON NAV FUNCTION
+function goTo(page) {
+  window.location.href = page;
+}
+
+// 🏠 HOME
+function goHome() {
+  window.location.href = "../index.html";
+}
+
+// 📤 UPLOAD
+function goUpload() {
+  window.location.href = "upload.html";
+}
+
+// 🛍 MARKETPLACE
+function goMarket() {
+  window.location.href = "marketplace.html";
+}
+
+// 📅 SCHEDULE
+function goSchedule() {
+  window.location.href = "schedule.html";
+}
+
+// 🧠 QUIZ
+function goQuiz() {
+  window.location.href = "quiz.html";
+}
+</script>
+
+</body>
+</html>
