@@ -1,6 +1,6 @@
 # ♻️ Plastic Nova
 
-> **"From Waste to Worth — Building a Cleaner Future" 🌍***
+> **"From Waste to Worth — Building a Cleaner Future" 🌍**
 
 
 
