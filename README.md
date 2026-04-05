@@ -130,7 +130,7 @@ Displays user impact, nearby buyers and NGO drives.
 ### ♻️ Upload Waste
 Upload waste details, calculate price, and list materials for sale with location support.
 
-![Upload_Waste](upload_waste.jpg)
+![Upload](Upload_waste.jpg)
 ---
 
 
