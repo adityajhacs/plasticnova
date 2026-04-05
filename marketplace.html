@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Plastic Nova Marketplace</title>
+<input 
+  type="text" 
+  id="search" 
+  placeholder="Search products..." 
+  onkeyup="searchProduct()"
+  class="search"
+/>
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#f5f7fa,#c3cfe2); /* light blue-gray */
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
+  background:linear-gradient(135deg,#2e7d32,#1b5e20);
+  color:white;
+}
+
+/* SEARCH */
+.search{
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  width:200px;
+  outline:none;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:40px;
+  padding:20px;
+  
+  padding-right: 40px;
+}
+
+/* CARD */
+.card{
+  background:white;
+  border-radius:15px;
+  padding:10px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+  width:100%;
+  max-width:300px;  
+  margin:auto;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* BUTTON */
+.card button{
+  background:#ff9800;
+  color:white;
+  padding:8px 12px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.card button:hover{
+  background:#f57c00;
+}
+
+img{
+  width:100%;
+  height:150px;
+  object-fit:cover;  
+  border-radius:10px;
+}
+/* POPUP */
+.popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:12px;
+  width:300px;
+  text-align:center;
+}
+
+input{
+  width:90%;
+  padding:10px;
+  margin:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>♻️ Marketplace</h2>
+  <div>
+    <button onclick="openSell()">Sell</button>
+    <button onclick="openCart()">Cart (<span id="count">0</span>)</button>
+  </div>
+</div>
+
+<div class="grid" id="products"></div>
+
+<!-- SELL POPUP -->
+<div class="popup" id="sellPopup">
+  <div class="box">
+    <h3>Add Product</h3>
+    <input id="pname" placeholder="Name">
+    <input id="price" placeholder="Price">
+    <input id="img" type="file">
+    <button onclick="addProduct()">Add</button>
+    <button onclick="closeSell()">Close</button>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="popup" id="cartPopup">
+  <div class="box">
+    <h3>Cart</h3>
+    <div id="cartItems"></div>
+    <button onclick="checkout()">Checkout</button>
+    <button onclick="closeCart()">Close</button>
+  </div>
+</div>
+
+<!-- PAYMENT -->
+<div class="popup" id="payPopup">
+  <div class="box">
+    <h3>Payment</h3>
+    <input id="name" placeholder="Full Name">
+    <input id="address" placeholder="Address">
+    <button onclick="pay()">Pay Now</button>
+  </div>
+</div>
+
+<script>
+
+/* DEMO PRODUCTS */
+let demo = [
+ {name:"Eco Brick",price:50,img:"https://images.prestigeonline.com/wp-content/uploads/sites/3/2022/09/26140835/EcoBricks-Photo-min-scaled.jpg"},
+ {name:"Bottle Lamp",price:120,img:"https://i.ytimg.com/vi/IiVuWRf5ZOY/maxresdefault.jpg"},
+ {name:"Plastic Chair",price:300,img:"https://i5.walmartimages.com/seo/Adams-Penza-Outdoor-Resin-Stack-Chair-with-Phone-Holder-Plastic-Patio-Furniture-Sea-Glass_0a352fcf-1226-453f-bcb4-d0a040d553a5.3678431080b6bcdaead28723553c2c3a.jpeg"},
+ {name:"Recycled Bag",price:80,img:"https://i.etsystatic.com/38155389/r/il/74c8f0/5522957296/il_1080xN.5522957296_oe55.jpg"},
+ {name:"Planter",price:60,img:"https://www.pillarboxblue.com/wp-content/uploads/2020/05/decoupage-upcycled-plastic-bottle-garden-fts-735x490.jpg.webp"},
+ {name:"Decor Item",price:150,img:"https://i.ytimg.com/vi/35xECZuaSnU/maxresdefault.jpg"},
+ {name:"Bottle Art",price:90,img:"https://i.pinimg.com/originals/da/43/a6/da43a672c4c78f2162f000f22474f5ef.jpg"},
+ {name:"Eco Tile",price:200,img:"https://betterfuturefactory.com/wp-content/uploads/2023/01/BFF-New-Marble-Plastic-Tiles-b-1280x678.jpg"},
+ {name:"Plastic Table",price:500,img:"https://images-na.ssl-images-amazon.com/images/I/61sEqqKpfwL._AC_SL1280_.jpg"},
+ {name:"Wall Decor",price:110,img:"https://i.ytimg.com/vi/uh4No63leck/maxresdefault.jpg"}
+];
+
+function load(){
+  let list = [...demo, ...(JSON.parse(localStorage.getItem("userProducts"))||[])];
+
+  let html="";
+  list.forEach((p,i)=>{
+
+  let isUserProduct = i >= demo.length;
+
+  html+=`
+  <div class="card">
+    <img src="${p.img}">
+    <h3>${p.name}</h3>
+    <p>₹${p.price}</p>
+
+    <button onclick="addCart(${i})">Add</button>
+
+    ${isUserProduct ? 
+      `<button onclick="deleteItem(${i})" style="background:red;color:white;border:none;padding:6px;margin-top:5px;border-radius:6px;">Delete</button>` 
+      : ""
+    }
+
+  </div>`;
+});
+
+  document.getElementById("products").innerHTML=html;
+  updateCount();
+}
+
+/* SELL */
+function openSell(){document.getElementById("sellPopup").style.display="flex";}
+function closeSell(){document.getElementById("sellPopup").style.display="none";}
+
+function addProduct(){
+  let name=document.getElementById("pname").value;
+  let price=document.getElementById("price").value;
+  let file=document.getElementById("img").files[0];
+
+  if(!name||!price){alert("Fill details");return;}
+
+  let reader=new FileReader();
+  reader.onload=function(e){
+    let list=JSON.parse(localStorage.getItem("userProducts"))||[];
+    list.push({name,price,img:e.target.result});
+    localStorage.setItem("userProducts",JSON.stringify(list));
+    alert("Added!");
+    closeSell();
+    load();
+  }
+
+  if(file) reader.readAsDataURL(file);
+}
+function searchProduct(){
+
+  let input = document.getElementById("search").value.toLowerCase();
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card=>{
+    let text = card.innerText.toLowerCase();
+
+    if(text.includes(input)){
+      card.style.display = "block";
+    }else{
+      card.style.display = "none";
+    }
+  });
+
+}
+
+/* CART */
+function addCart(i){
+  let list=[...demo, ...(JSON.parse(localStorage.getItem("userProducts"))||[])];
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  cart.push(list[i]);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  updateCount();
+}
+
+function updateCount(){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  document.getElementById("count").innerText=cart.length;
+}
+
+function openCart(){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  let html="";
+  cart.forEach(p=>{
+    html+=`<p>${p.name} - ₹${p.price}</p>`;
+  });
+  document.getElementById("cartItems").innerHTML=html;
+  document.getElementById("cartPopup").style.display="flex";
+}
+
+function deleteItem(index){
+
+  let list = JSON.parse(localStorage.getItem("userProducts")) || [];
+
+  // remove item
+  list.splice(index - demo.length, 1);
+
+  localStorage.setItem("userProducts", JSON.stringify(list));
+
+  load(); // reload UI
+}
+function closeCart(){document.getElementById("cartPopup").style.display="none";}
+
+/* CHECKOUT */
+function checkout(){
+  window.location.href = "checkout.html";
+}
+/* PAYMENT */
+function pay(){
+  let name=document.getElementById("name").value;
+  let address=document.getElementById("address").value;
+
+  if(!name||!address){
+    alert("Fill details");
+    return;
+  }
+
+  alert("🎉 Payment Successful!");
+  localStorage.removeItem("cart");
+  closeCart();
+  document.getElementById("payPopup").style.display="none";
+  updateCount();
+}
+
+load();
+
+</script>
+
+</body>
+</html>
