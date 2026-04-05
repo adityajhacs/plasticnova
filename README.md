@@ -127,6 +127,13 @@ Displays user impact, nearby buyers and NGO drives.
 ![Home 2](homepage(2).jpg)
 ---
 
+### ♻️ Upload Waste
+Upload waste details, calculate price, and list materials for sale with location support.
+
+![Upload_Waste](upload_waste.jpg)
+---
+
+
 ## 🌍 Vision
 
 > “Plastic is not waste until we waste it. Plastic Nova turns waste into opportunity.” ♻️
