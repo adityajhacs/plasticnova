@@ -132,7 +132,72 @@ Upload waste details, calculate price, and list materials for sale with location
 
 ![Upload](Upload_waste.jpg)
 ---
+### 🛒 Marketplace
+Browse and buy eco-friendly recycled products with an easy add-to-cart experience.
 
+![Marketplace](marketplace.jpg)
+---
+### ➕ Add Product
+Add product details and images to list items for sale in the marketplace.
+
+![Add_product](add_product.jpg)
+---
+### 💳 Checkout
+A streamlined checkout process where users confirm their order, provide delivery information, and complete transactions securely with flexible payment options.
+
+![Checkout](checkout.jpg)
+---
+### 📦 Orders
+View and track order status with real-time updates.
+
+
+![Orders](orders.jpg)
+---
+### 🤖 AI Scanner
+Scan waste using camera and get instant identification with recycling suggestions.
+
+![AI_Scanner](ai_scanner.jpg)
+---
+### 🤝 Join NGO Drive
+Join NGO campaigns and participate in environmental cleanup drives.
+
+![NGO](ngo.jpg)
+---
+### 📊 Dashboard
+View activity, manage listings, and track orders from one place.
+
+![Dashboard](dashboard.jpg)
+---
+### 🧠 Quiz
+Test your knowledge on recycling and sustainability through interactive quizzes.
+
+![Quiz](quiz.jpg)
+---
+### 📍 Share Location
+Share location to find nearby products and sellers.
+
+![Share](share_location.jpg)
+---
+### 🛍️ Buy Products
+Browse and purchase products available in your area.
+
+![Buy](buy_products.jpg)
+---
+### ♻️ Plastic Recycling Tutorial
+Learn how to recycle and reuse plastic waste effectively.
+
+![Recycle](recycle.jpg)
+---
+### 📅 Schedule
+A smart scheduling system that enables users to organize pickups, deliveries, and eco-activities efficiently.
+
+![Schedule](schedule.jpg)
+---
+### 👤 Profile
+Manage personal details and track your activity in one place.
+
+![Profile](profile.jpg)
+---
 
 ## 🌍 Vision
 
