@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Checkout</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#66bb6a,#a5d6a7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+/* MAIN BOX */
+.container{
+  width:420px;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(12px);
+  padding:30px;
+  border-radius:18px;
+  color:#1b5e20;
+  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* TITLE */
+h2{
+  font-size:24px;
+  margin-bottom:15px;
+}
+
+/* ITEMS */
+.item{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  padding:10px 0;
+  font-size:16px;
+}
+
+/* TOTAL */
+.total{
+  margin-top:12px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* HEADINGS */
+h3{
+  margin-top:18px;
+  font-size:18px;
+}
+
+/* INPUT */
+input, select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:8px;
+  font-size:15px;
+  background:white;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:10px;
+  background:#2e7d32;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#1b5e20;
+  box-shadow:0 0 12px rgba(0,150,0,0.6);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🛒 Checkout</h2>
+
+<div id="items"></div>
+
+<div class="total" id="total"></div>
+
+<h3>📍 Address</h3>
+
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<input id="address" placeholder="Address">
+
+<h3>💳 Payment</h3>
+
+<select id="payment">
+  <option>UPI</option>
+  <option>Card</option>
+  <option>Cash on Delivery</option>
+</select>
+
+<button class="btn" onclick="place()">Place Order</button>
+
+</div>
+
+<script>
+
+function load(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let html="";
+  let total=0;
+
+  cart.forEach(p=>{
+    html += `
+    <div class="item">
+      <span>${p.name}</span>
+      <span>₹${p.price}</span>
+    </div>`;
+    total += Number(p.price);
+  });
+
+  document.getElementById("items").innerHTML = html;
+  document.getElementById("total").innerHTML = "Total: ₹"+total;
+}
+
+function place(){
+
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+
+  if(!name || !phone || !address){
+    alert("Fill all details 😤");
+    return;
+  }
+
+  alert("🎉 Order Placed Successfully!\nPayment Done ✅");
+localStorage.setItem("lastOrder", JSON.stringify({
+  items: JSON.parse(localStorage.getItem("cart")),
+  name: name,
+  address: address
+}));
+  localStorage.removeItem("cart");
+
+  window.location.href = "orders.html"; // back to home
+}
+
+load();
+
+</script>
+
+</body>
+</html>
