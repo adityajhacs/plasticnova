@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your Orders</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#66bb6a,#a5d6a7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+/* MAIN */
+.container{
+  width:450px;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(12px);
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* TITLE */
+h2{
+  text-align:center;
+  color:#1b5e20;
+}
+
+/* ORDER CARD */
+.order{
+  background:white;
+  padding:15px;
+  margin-top:15px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ITEMS */
+.item{
+  display:flex;
+  justify-content:space-between;
+  margin:5px 0;
+}
+
+/* STATUS */
+.status{
+  margin-top:10px;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:14px;
+  width:fit-content;
+}
+
+/* COLORS */
+.processing{background:#fff3cd; color:#856404;}
+.transit{background:#cce5ff; color:#004085;}
+.delivered{background:#d4edda; color:#155724;}
+
+/* BUTTON */
+.btn{
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#2e7d32;
+  color:white;
+  cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📦 Your Orders</h2>
+
+<div id="orders"></div>
+
+<button class="btn" onclick="goBack()">⬅ Back to Home</button>
+
+</div>
+
+<script>
+
+/* LOAD ORDER */
+function loadOrders(){
+
+  let order = JSON.parse(localStorage.getItem("lastOrder"));
+
+  if(!order){
+    document.getElementById("orders").innerHTML = "<p>No orders yet 😢</p>";
+    return;
+  }
+
+  let html="";
+
+  html += `<div class="order">`;
+
+  order.items.forEach(p=>{
+    html += `
+    <div class="item">
+      <span>${p.name}</span>
+      <span>₹${p.price}</span>
+    </div>`;
+  });
+
+  html += `<hr>`;
+
+  html += `<p><b>Name:</b> ${order.name}</p>`;
+  html += `<p><b>Address:</b> ${order.address}</p>`;
+
+  html += `<div id="statusBox" class="status processing">Processing ⏳</div>`;
+
+  html += `</div>`;
+
+  document.getElementById("orders").innerHTML = html;
+
+  simulateStatus();
+}
+
+/* FAKE TRACKING */
+function simulateStatus(){
+
+  setTimeout(()=>{
+    document.getElementById("statusBox").className="status transit";
+    document.getElementById("statusBox").innerText="On The Way 🚚";
+  },3000);
+
+  setTimeout(()=>{
+    document.getElementById("statusBox").className="status delivered";
+    document.getElementById("statusBox").innerText="Delivered ✅";
+  },6000);
+}
+
+function goBack(){
+  window.location.href="../index.html";
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
