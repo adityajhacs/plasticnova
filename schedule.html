@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Activity</title>
+
+<style>
+
+/* BACKGROUND */
+body{
+  margin:0;
+  font-family:'Segoe UI';
+  background: linear-gradient(135deg,#d4fc79,#96e6a1);
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:220px;
+  height:100%;
+  background:linear-gradient(180deg,#11998e,#38ef7d);
+  padding:20px;
+  color:white;
+  transition:0.3s;
+}
+
+.sidebar h2{
+  margin-bottom:20px;
+}
+
+.sidebar a{
+  display:flex;
+  gap:10px;
+  margin:15px 0;
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+  transition:0.3s;
+}
+
+.sidebar a:hover{
+  transform:translateX(5px);
+}
+
+/* COLLAPSE */
+.sidebar.collapsed{
+  width:70px;
+}
+
+.sidebar.collapsed span{
+  display:none;
+}
+
+/* MENU BUTTON */
+.menu-btn{
+  font-size:20px;
+  top:15px;
+  left:15px;
+  color:white;
+  border:none;
+  padding:10px;
+  background:none;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:1000;
+}
+
+/* MAIN */
+.main{
+  margin-left:240px;
+}
+
+/* HEADER */
+.header{
+  background: linear-gradient(135deg,#11998e,#38ef7d);
+  color:white;
+  padding:20px;
+  text-align:center;
+  font-size:26px;
+  font-weight:bold;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* GRID */
+.container{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+  gap:25px;
+  padding:30px;
+}
+
+/* SECTION BOX */
+.section-box{
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(20px);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.2),
+    inset 0 0 20px rgba(255,255,255,0.3);
+  transition:0.4s;
+}
+
+.section-box:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.3),
+    0 0 30px #00ffcc;
+}
+
+/* TITLE */
+.section-box h2{
+  margin-bottom:15px;
+  color:#064e3b;
+}
+
+/* ITEM */
+.item{
+  background: rgba(255,255,255,0.85);
+  border-radius:12px;
+  padding:12px 15px;
+  margin:10px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:0.3s;
+}
+
+.item:hover{
+  transform:scale(1.03);
+}
+
+/* BUTTONS */
+.btn{
+  padding:6px 14px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.delete{
+  background: linear-gradient(135deg,#ff416c,#ff4b2b);
+  color:white;
+}
+
+.view{
+  background: linear-gradient(135deg,#2196f3,#21cbf3);
+  color:white;
+}
+
+.pickup{
+  background: linear-gradient(135deg,#ff9800,#ffc107);
+  color:white;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .sidebar{
+    left:-100%;
+  }
+
+  .sidebar.active{
+    left:0;
+  }
+
+  .main{
+    margin-left:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+   <div class="top-bar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h2>♻ Nova</h2>
+  </div>
+   <a href="../index.html">🏠 Home</a>
+  <a href="upload.html">📤 Upload</a>
+  <a href="marketplace.html">🛍 <span>Market</span></a>
+  <a href="dashboard.html">📊 <span>Dashboard</span></a>
+   <a href="buyers.html">🤝 Buyers</a>
+   <a href="tutorial.html">🎥 Tutorial</a>
+   <a href="schedule.html">⏰ <span>Schedule</span></a>
+   <a href="ngo.html">🌱 <span>NGO Form</span></a>
+   <a href="pages/quiz.html">♻️ Quiz</a>
+  <a href="profile.html">👤 My Profile</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="header">📊 My Activity</div>
+
+  <div class="container">
+
+    <!-- SOLD PLASTIC -->
+    <div class="section-box">
+      <h2>♻ Sold Plastic</h2>
+
+      <div class="item">
+        <div>
+          <b>Plastic Bottles</b><br>₹120
+        </div>
+        <button class="btn delete">Delete</button>
+      </div>
+
+      <div class="item">
+        <div>
+          <b>Milk Packets</b><br>₹80
+        </div>
+        <button class="btn delete">Delete</button>
+      </div>
+    </div>
+
+    <!-- SOLD CREATIVE -->
+    <div class="section-box">
+      <h2>🎨 Sold Creative</h2>
+
+      <div class="item">
+        <b>Plastic Chair</b>
+        <button class="btn delete">Delete</button>
+      </div>
+
+      <div class="item">
+        <b>Bottle Lamp</b>
+        <button class="btn delete">Delete</button>
+      </div>
+    </div>
+
+    <!-- BOUGHT -->
+    <div class="section-box">
+      <h2>🛍 Bought Items</h2>
+
+      <div class="item">
+        <b>Recycled Table</b>
+        <button class="btn view">View</button>
+      </div>
+
+      <div class="item">
+        <b>Eco Planter</b>
+        <button class="btn view">View</button>
+      </div>
+    </div>
+
+    <!-- PICKUP -->
+    <div class="section-box">
+      <h2>🚚 Pending Pickups</h2>
+
+      <div class="item">
+        <b>Plastic Bottles</b>
+        <button class="btn pickup">Scheduled</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+function toggleSidebar(){
+  let sidebar = document.getElementById("sidebar");
+
+  if(window.innerWidth < 768){
+    sidebar.classList.toggle("active");
+  } else {
+    sidebar.classList.toggle("collapsed");
+  }
+}
+
+</script>
+
+</body>
+</html>
