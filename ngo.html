@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NGO Registration</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Segoe UI';
+  background: linear-gradient(135deg,#6fe2a8,#1d7a3d);
+  min-height:100vh;
+  padding:30px;
+}
+
+/* MAIN CONTAINER */
+.container{
+  width:100%;
+  max-width:1000px;
+  margin:auto;
+
+  background: rgba(251, 255, 253, 0.15);
+  backdrop-filter: blur(15px);
+
+  border-radius:20px;
+  padding:30px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* TITLE */
+h2{
+  text-align:center;
+  color:white;
+  margin-bottom:25px;
+}
+
+/* GRID FORM */
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+/* FULL WIDTH */
+.full{
+  grid-column:span 2;
+}
+
+/* INPUT */
+input, select, textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+
+/* TEXTAREA */
+textarea{
+  height:80px;
+  resize:none;
+}
+
+/* LABEL */
+label{
+  color:white;
+  font-size:13px;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#00c853;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#009624;
+}
+
+/* MESSAGE */
+.msg{
+  text-align:center;
+  margin-top:15px;
+  color:white;
+  font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+  .full{
+    grid-column:span 1;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🌱 Join NGO Drive</h2>
+
+<div class="form-grid">
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+
+  <input type="text" id="mobile" placeholder="Mobile Number">
+  <input type="text" id="city" placeholder="City">
+
+  <input type="text" id="address" placeholder="Address" class="full">
+
+  <input type="text" id="state" placeholder="State">
+  <input type="text" id="pincode" placeholder="Pincode">
+
+  <select id="ngo">
+    <option value="">Select NGO</option>
+    <option>Clean Plastic Drive</option>
+    <option>Beach Cleanup</option>
+  </select>
+
+  <select id="gender">
+    <option value="">Gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+
+  <input type="date" id="date" class="full">
+
+  <textarea id="reason" placeholder="Why do you want to join?" class="full"></textarea>
+
+  <label class="full">
+    <input type="checkbox" id="terms"> I agree to terms
+  </label>
+
+  <button onclick="submitForm()" class="full">Join Now</button>
+
+</div>
+
+<div id="msg" class="msg"></div>
+
+</div>
+
+<script>
+
+function submitForm(){
+
+  let fields = ["name","email","mobile","city","address","state","pincode","ngo","gender","date"];
+
+  for(let f of fields){
+    if(!document.getElementById(f).value){
+      alert("Please fill all fields!");
+      return;
+    }
+  }
+
+  if(!document.getElementById("terms").checked){
+    alert("Accept terms!");
+    return;
+  }
+
+  let points = localStorage.getItem("points") || 0;
+  points = parseInt(points) + 150;
+  localStorage.setItem("points", points);
+
+  document.getElementById("msg").innerText =
+    "🎉 Registered Successfully! +150 Points Earned";
+
+  document.querySelectorAll("input, textarea").forEach(i=>i.value="");
+  document.getElementById("ngo").value="";
+  document.getElementById("gender").value="";
+  document.getElementById("terms").checked=false;
+}
+
+</script>
+
+</body>
+</html>
