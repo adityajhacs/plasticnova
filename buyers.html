@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buy Waste</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI';
+      background: #f6fff7;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      width: 220px;
+      height: 100%;
+      background: linear-gradient(180deg, #2e7d32, #1b5e20);
+      padding: 20px;
+      color: white;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 12px 0;
+      color: white;
+      text-decoration: none;
+      padding: 6px;
+    }
+    .sidebar a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+    /* MAIN */
+    .main {
+      margin-left: 240px;
+      padding: 30px;
+    }
+
+    /* LOCATION BOX */
+    .location-box {
+      background: linear-gradient(135deg, #66bb6a, #43a047);
+      color: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .location-box button {
+      padding: 12px 20px;
+      background: white;
+      color: green;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* MARKET */
+    .hidden {
+      display: none;
+    }
+
+    /* GRID */
+    .cards {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    /* CARD */
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 1000px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>♻ Nova</h2>
+<a href="../index.html">🏠 Home</a>
+  <a href="upload.html">📤 Upload</a>
+  <a href="marketplace.html">🛍 <span>Market</span></a>
+  <a href="dashboard.html">📊 <span>Dashboard</span></a>
+   <a href="buyers.html">🤝 Buyers</a>
+   <a href="tutorial.html">🎥 Tutorial</a>
+   <a href="schedule.html">⏰ <span>Schedule</span></a>
+   <a href="ngo.html">🌱 <span>NGO Form</span></a>
+   <a href="pages/quiz.html">♻️ Quiz</a>
+  <a href="profile.html">👤 My Profile</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LOCATION -->
+  <div id="locationBox" class="location-box">
+    <h2>📍 Share Your Location</h2>
+    <p>See nearby waste sellers</p>
+    <button onclick="getLocation()">Allow Location</button>
+  </div>
+
+  <!-- MARKET -->
+  <div id="market" class="hidden">
+    <h2>🔥 Nearby Waste Available</h2>
+    <div class="cards" id="cards"></div>
+  </div>
+
+</div>
+
+<script>
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showMarket);
+  } else {
+    alert("Location not supported");
+  }
+}
+
+function showMarket() {
+  document.getElementById("locationBox").style.display = "none";
+  document.getElementById("market").classList.remove("hidden");
+  loadData();
+}
+
+function loadData() {
+
+  const data = [
+    {material:"Plastic Bottles", qty:10, price:100, time:"Today", img:"https://eupegypt.com/wp-content/uploads/2024/12/pet-plastic-bottles.jpg"},
+    {material:"Polythene Bags", qty:5, price:50, time:"Tomorrow", img:"https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2022/03/pti05-07-2021-000170b-1646235171.jpg"},
+    {material:"Hard Plastic", qty:15, price:180, time:"Today Evening", img:"https://scitechdaily.com/images/Plastic-Waste-Recycled.jpg"},
+    {material:"Mixed Waste", qty:8, price:70, time:"2 Days", img:"https://earth911.com/wp-content/uploads/2016/06/mixed-waste-mix.jpg"},
+    {material:"Plastic Containers", qty:12, price:140, time:"Today", img:"https://www.greenbagpickup.com/wp-content/uploads/2023/01/plastic.jpg"},
+    {material:"Water Bottles", qty:7, price:80, time:"Tomorrow", img:"https://img.freepik.com/premium-photo/plastic-water-bottle-waste-generate-ai_98402-117902.jpg"},
+    {material:"Plastic Covers", qty:9, price:90, time:"Evening", img:"https://static.vecteezy.com/system/resources/thumbnails/032/700/037/small_2x/plastic-waste-pile-for-recycling-ai-generative-png.png"},
+    {material:"Recyclable Waste", qty:20, price:220, time:"3 Days", img:"https://images.theconversation.com/files/554111/original/file-20231016-23-gcf4fp.jpg?ixlib=rb-1.1.0&rect=79%2C3%2C2038%2C1397&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip"}
+  ];
+
+  const container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  data.forEach(item => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${item.img}">
+        <h3>${item.material}</h3>
+        <p>📦 ${item.qty} kg</p>
+        <p>💰 ₹${item.price}</p>
+        <p>⏰ ${item.time}</p>
+        <p>📍 1.5 km away</p>
+        <button onclick="buyItem('${item.material}')">Buy Now</button>
+      </div>
+    `;
+  });
+}
+
+function buyItem(name) {
+  alert(name + " pickup request sent 🚀");
+}
+
+</script>
+
+</body>
+</html>
